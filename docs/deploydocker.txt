@@ -1,0 +1,34 @@
+# ==================================
+一、从阿里云镜像安装Docker （install Docker from Aliyun(China)）
+# ==================================
+--- 更新apt
+ sudo apt update && sudo apt install ca-certificates curl gnupg lsb-release -y
+--- 获取密钥
+curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+---密钥校验
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://mirrors.aliyun.com/docker-
+ce/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
+--- 安装
+sudo apt update && sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
+--- 授权
+sudo usermod -aG docker $USER
+#===================================
+二、修改配置文件以切换国内镜像仓库 （update the json to config repo to get a better effect）
+#==================================
+--- 启动vi编辑器
+sudo vi /etc/docker/daemon.json
+---覆盖配置
+{
+  "registry-mirrors": [
+    "https://docker.m.daocloud.io",
+    "https://docker.1panel.live",
+    "https://hub.rat.dev"
+  ]
+}
+# ==================================
+三、部署完成测试
+#===================================
+---拉取测试
+sudo docker pull hello-world
+---部署成功
+docker run hello-world 
