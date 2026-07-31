@@ -8,6 +8,10 @@ curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo gpg --de
 ---密钥校验
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://mirrors.aliyun.com/docker-
 ce/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
+（如果报错，注意换行兼容）：
+sudo tee /etc/apt/sources.list.d/docker.list <<'EOF'
+deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu resolute stable
+EOF
 --- 安装
 sudo apt update && sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
 --- 授权
