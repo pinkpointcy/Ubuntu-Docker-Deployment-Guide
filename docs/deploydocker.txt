@@ -29,6 +29,25 @@ sudo vi /etc/docker/daemon.json
     "https://hub.rat.dev"
   ]
 }
+--- 或自动触发
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": [
+    "https://docker.m.daocloud.io",
+    "https://docker.1panel.live",
+    "https://hub.rat.dev"
+  ],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "20m",
+    "max-file": "3"
+  }
+}
+EOF
+-- 验证
+docker info 验证是否生效，如果拒绝请执行并重启终端：
+sudo usermod -aG docker 你的用户名
+
 # ==================================
 三、部署完成测试
 #===================================
